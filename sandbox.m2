@@ -42,3 +42,10 @@ a = 2; -- rotate a notches
 Slambda = makeCpSimplicialComplex(p,map(Z,Z, 
     (for i to p-1 list x_((i+a)%p)) | {x_p, x_(p+1)}))
 for i to 3 do print prune bredonHomology(Slambda,i)
+
+-- egg-beater 
+W = simplicialComplex((for i to p-1 list x_i*x_p) | 
+	(for i to p-1 list x_i*x_(p+1)))
+EB = makeCpSimplicialComplex(p,map(W,W,
+	(for i to p-1 list x_((i+a)%p)) | {x_p, x_(p+1)}))
+for i to 3 do print prune bredonHomology(EB,i)
