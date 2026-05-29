@@ -32,6 +32,8 @@ isWellDefined CpSimplicialComplex := Boolean => X -> (
 )
 
 makeCpSimplicialComplex = method()
+
+-- make a CpSimplicialComplex by specifying an order p simplicial self-map
 makeCpSimplicialComplex(ZZ,SimplicialMap) := CpSimplicialComplex => (p,a) ->(
     X := new CpSimplicialComplex from {
         symbol PrimeOrder => p,
@@ -41,6 +43,21 @@ makeCpSimplicialComplex(ZZ,SimplicialMap) := CpSimplicialComplex => (p,a) ->(
         };
     if not isWellDefined X then error "CpSimplicialComplex not well-defined";
     X
+)
+
+-- make a CpSimplicialComplex from:
+-- a list of faces and
+-- a list specifying an order p permutation of variables
+makeCpSimplicialComplex(ZZ,List,List) := CpSimplicialComplex => (p,F,a) ->(
+	U := simplicialComplex F;
+	X := new CpSimplicialComplex from {
+		symbol PrimeOrder => p,
+		symbol Underlying => U,
+		symbol Action => map(U,U,a),
+		symbol cache => new CacheTable
+	};
+	if not isWellDefined X then error "CpSimplicialComplex not well-defined";
+	X
 )
 
 -- Equality
