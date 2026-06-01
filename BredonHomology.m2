@@ -28,5 +28,9 @@ export {
     "bredonCohomology"
 }
 
+beginDocumentation()
+
+load "./BredonHomology/Tests/HomologyTests.m2"
+
 
 end
