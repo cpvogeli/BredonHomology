@@ -16,28 +16,16 @@ IZ = makeZeroOnUnderlyingMackeyFunctor(2,ZZ^1)
 OZ = makeOrbitMackeyFunctor(2,id_(ZZ^1))
 
 -- representation sphere S^sigma
-Ssigma = makeCpSimplicialComplex(2,
-	{a*b,b*c,c*d,d*a},
-	{a,d,c,b,e,f})
-for i to 3 do print prune bredonHomology(i,Ssigma)
+for i to 3 do print prune bredonHomology(i,sigmaSphereComplex(R))
 
 -- representation sphere S^rho
-Srho = makeCpSimplicialComplex(2,
-	{a*b*e, b*c*e, c*d*e, a*d*e, a*b*f, b*c*f, c*d*f, a*d*f},
-	{a,d,c,b,e,f})
-for i to 3 do print prune bredonHomology(i,Srho)
+for i to 3 do print prune bredonHomology(i,rhoSphereComplex(R))
 
 -- representation sphere S^(2*sigma)
-S2sigma = makeCpSimplicialComplex(2,
-	{a*b*e, b*c*e, c*d*e, a*d*e, a*b*f, b*c*f, c*d*f, a*d*f},
-	{c,d,a,b,e,f})
-for i to 3 do print prune bredonHomology(i,S2sigma)
+for i to 3 do print prune bredonHomology(i,sigma2SphereComplex(R))
 
 -- sphere in 3*sigma
-SS3sigma = makeCpSimplicialComplex(2,
-	{a*b*e, b*c*e, c*d*e, a*d*e, a*b*f, b*c*f, c*d*f, a*d*f},
-	{c,d,a,b,f,e})
-for i to 3 do print prune bredonHomology(i,SS3sigma)
+for i to 3 do print prune bredonHomology(i,antipodalSphereComplex(R))
 
 -------------------------
 -- examples at odd primes
@@ -46,17 +34,8 @@ for i to 3 do print prune bredonHomology(i,SS3sigma)
 p = 7;
 S = ZZ[x_0..x_(p+1)];
 
--- representation sphere S^(lambda_a)
-a = 3; -- rotate a notches
-Slambda = makeCpSimplicialComplex(p,
-	(for i to p-1 list x_i*x_((i+1)%p)*x_p) |
-	(for i to p-1 list x_i*x_((i+1)%p)*x_(p+1)),
-	(for i to p-1 list x_((i+a)%p)) | {x_p, x_(p+1)})
-for i to 3 do print prune bredonHomology(i,Slambda)
+-- representation sphere S^(lambda_2)
+for i to 3 do print prune bredonHomology(i,lambdaSphereComplex(p,2,S))
 
 -- egg-beater 
-EB = makeCpSimplicialComplex(p,
-	(for i to p-1 list x_i*x_p) | 
-	(for i to p-1 list x_i*x_(p+1)),
-	(for i to p-1 list x_((i+a)%p)) | {x_p, x_(p+1)})
-for i to 3 do print prune bredonHomology(i,EB)
+for i to 3 do print prune bredonHomology(i,eggBeaterComplex(p,S))

@@ -1,5 +1,3 @@
-needsPackage "SimplicialComplexes"
-
 CpSimplicialComplex = new Type of HashTable
 
 isWellDefined CpSimplicialComplex := Boolean => X -> (
@@ -53,7 +51,7 @@ makeCpSimplicialComplex(ZZ,List,List) := CpSimplicialComplex => (p,F,a) ->(
 	X := new CpSimplicialComplex from {
 		symbol PrimeOrder => p,
 		symbol Underlying => U,
-		symbol Action => map(U,U,a),
+		symbol Action => map(U,U,map(ring U,ring U,a)),
 		symbol cache => new CacheTable
 	};
 	if not isWellDefined X then error "CpSimplicialComplex not well-defined";

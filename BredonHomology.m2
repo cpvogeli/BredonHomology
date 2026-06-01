@@ -28,6 +28,16 @@ export {
     "bredonCohomology"
 }
 
+load "./BredonHomology/Code/Examples.m2"
+export {
+    "sigmaSphereComplex",
+    "rhoSphereComplex",
+    "sigma2SphereComplex",
+    "antipodalSphereComplex",
+    "lambdaSphereComplex",
+    "eggBeaterComplex"
+}
+
 beginDocumentation()
 
 load "./BredonHomology/Tests/HomologyTests.m2"
