@@ -1,3 +1,17 @@
+-- constructs the hyperoctahedron as a simplicial complex
+-- n is the topological dimension (i.e. the maximal faces are n-dimensional,
+-- and the resulting complex models the n-sphere)
+hyperoctahedralComplex = method()
+hyperoctahedralComplex(ZZ,PolynomialRing) := SimplicialComplex => (n,R) -> (
+    if numgens R < 2*(n+1) then (
+        error("expected polynomial ring with >= 2*(n+1) variables")
+    );
+    simplicialComplex(
+        for f in toList((set{0,n+1})^**(n+1)/deepSplice) list 
+            product(for i to n list R_(i+f_i))
+    )
+)
+
 -- circle S^1 with C2-action by reflection
 sigmaSphereComplex = method()
 sigmaSphereComplex(PolynomialRing) := CpSimplicialComplex => (R) -> (
@@ -37,17 +51,13 @@ sigma2SphereComplex(PolynomialRing) := CpSimplicialComplex => (R) -> (
 )
 
 -- 2-sphere with antipodal C2-action
--- TODO: generalize to n-sphere with antipodal action
 antipodalSphereComplex = method()
-antipodalSphereComplex(PolynomialRing) := CpSimplicialComplex => (R) -> (
-    if numgens R < 6 then (
-        error("expected polynomial ring with >= 6 variables")
-    );
+antipodalSphereComplex(ZZ,PolynomialRing) := CpSimplicialComplex => (n,R) -> (
+    X := hyperoctahedralComplex(n,R);
     makeCpSimplicialComplex(2,
-        {R_0*R_2*R_4, R_0*R_2*R_5, R_0*R_3*R_4, R_0*R_3*R_5,
-            R_1*R_2*R_4, R_1*R_2*R_5, R_1*R_3*R_4, R_1*R_3*R_5},
-        {R_0 => R_1, R_1 => R_0, R_2 => R_3, R_3 => R_2,
-            R_4 => R_5, R_5 => R_4}
+        map(X,X, map(R,R,
+            flatten for i to n list {R_i => R_(i+n+1), R_(i+n+1) => R_i}
+        ))
     )
 )
 

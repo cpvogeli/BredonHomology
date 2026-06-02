@@ -102,10 +102,11 @@ bredonHomology(ZZ,CpSimplicialComplex,CpMackeyFunctor) := CpMackeyFunctor => (i,
     aC := complex X.Action;
     d := makeFixedPointMackeyFunctor(X.PrimeOrder,aC_(i-1),aC_i,C.dd_i);
     d' := makeFixedPointMackeyFunctor(X.PrimeOrder,aC_i,aC_(i+1),C.dd_(i+1));
+    -- the prunes here speed it up quite a lot, keep them?
     if isCohomological M then (
-        computeHomology(d ** M, d' ** M)
+        computeHomology(prune(d ** M), prune(d' ** M))
     ) else (
-        computeHomology(burnsideLift(d) ** M, burnsideLift(d') ** M)
+        computeHomology(prune(burnsideLift(d) ** M), prune(burnsideLift(d') ** M))
     )
 )
 

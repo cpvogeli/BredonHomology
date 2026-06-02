@@ -24,8 +24,11 @@ for i to 3 do print prune bredonHomology(i,rhoSphereComplex(R))
 -- representation sphere S^(2*sigma)
 for i to 3 do print prune bredonHomology(i,sigma2SphereComplex(R))
 
--- sphere in 3*sigma
-for i to 3 do print prune bredonHomology(i,antipodalSphereComplex(R))
+-- 2-sphere with antipodal action
+for i to 3 do print prune bredonHomology(i,antipodalSphereComplex(2,R))
+
+-- 4-sphere with antipodal action - slow!
+for i to 4 do print prune bredonHomology(i,antipodalSphereComplex(4,ZZ[x_1..x_10]))
 
 -------------------------
 -- examples at odd primes
